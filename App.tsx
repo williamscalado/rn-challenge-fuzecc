@@ -1,23 +1,17 @@
-import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "react-native";
+import { StyleVars } from "./src/common/style/vars";
+import MatchesView from "./src/modules/matches/view";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text01}>
-        Open up App.js to start working on your app! teste
-      </Text>
-    </View>
+    <NavigationContainer>
+      <StatusBar
+        backgroundColor={StyleVars.bg}
+        animated={true}
+        showHideTransition="slide"
+      />
+      <MatchesView />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "blue",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text01: {
-    color: "#FFF",
-  },
-});
