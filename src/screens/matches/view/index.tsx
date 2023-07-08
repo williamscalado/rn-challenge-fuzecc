@@ -1,4 +1,14 @@
-import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  ListRenderItem,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { HttpAdapter } from "../../../adapters/axios";
 import MatchesList from "../../../common/components/matchesList";
 import { StyleVars } from "../../../common/style/vars";
 import { IMatchData } from "../domain";
@@ -350,15 +360,45 @@ const dataMock = [
   },
 ];
 const MatchesView = () => {
+  const [matchesData, setMatchesData] = React.useState<IMatchData[]>();
+  const [loading, setLoading] = React.useState<boolean>(false);
   const renderItem: ListRenderItem<IMatchData> = ({ item }) => {
     return <MatchesList data={item} />;
   };
+
+  const getMatches = React.useCallback(async () => {
+    try {
+      setLoading(true);
+      const result = await HttpAdapter.fetch({
+        url: "csgo/matches?page[size]=10&page[number]=1",
+        method: "GET",
+      });
+      setMatchesData(result);
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+  React.useEffect(() => {
+    getMatches();
+  }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Partidas</Text>
       <View style={styles.matchesContainer}>
-        <FlatList data={dataMock} renderItem={renderItem} />
+        {loading ? (
+          <SafeAreaView style={styles.indicatorWrapper}>
+            <ActivityIndicator />
+          </SafeAreaView>
+        ) : (
+          <FlatList
+            data={matchesData}
+            renderItem={renderItem}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
       </View>
     </View>
   );
@@ -371,6 +411,11 @@ const styles = StyleSheet.create({
     padding: 24,
     paddingBottom: 0,
   },
+  indicatorWrapper: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   title: {
     fontSize: 32,
     color: StyleVars.white,
@@ -381,6 +426,7 @@ const styles = StyleSheet.create({
   matchesContainer: {
     width: "100%",
     height: "100%",
+    paddingBottom: 60,
   },
 });
 

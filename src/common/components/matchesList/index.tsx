@@ -1,5 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
+import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { verifyImageExist } from "../../../helpers/util";
 import { IMatchData } from "../../../screens/matches/domain";
 import { StyleVars } from "../../style/vars";
 
@@ -13,6 +15,7 @@ const MatchesList = ({ data }: IProps) => {
       matchId: id,
     });
   };
+
   return (
     <TouchableOpacity onPress={() => handleClick(data.id)}>
       <View style={styles.matchContainer}>
@@ -24,22 +27,28 @@ const MatchesList = ({ data }: IProps) => {
 
         <View>
           <View style={styles.matchDataContent}>
-            <View>
+            <View style={styles.containerInfoTeam}>
               <Image
                 style={styles.teamImage}
-                source={require("../../../../assets/team.png")}
+                source={verifyImageExist(data.opponents[0].opponent.image_url)}
               />
-              <Text style={styles.teamName}>Time 1</Text>
+              <Text style={styles.teamName}>
+                {data?.opponents[0]?.opponent.name}
+              </Text>
             </View>
             <View>
               <Text style={styles.textVs}>vs</Text>
             </View>
-            <View>
+            <View style={styles.containerInfoTeam}>
               <Image
                 style={styles.teamImage}
-                source={require("../../../../assets/team.png")}
+                source={verifyImageExist(
+                  data?.opponents[1]?.opponent.image_url
+                )}
               />
-              <Text style={styles.teamName}>Time 2</Text>
+              <Text style={styles.teamName}>
+                {data?.opponents[1]?.opponent.name}
+              </Text>
             </View>
           </View>
         </View>
@@ -77,6 +86,10 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 16,
     borderBottomLeftRadius: 16,
   },
+  containerInfoTeam: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   dataText: {
     fontFamily: StyleVars.primaryFont,
     color: StyleVars.white,
@@ -100,6 +113,8 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
   teamImage: {
+    width: 60,
+    height: 60,
     maxHeight: 60,
   },
 

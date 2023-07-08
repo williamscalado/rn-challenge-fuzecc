@@ -22,10 +22,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/gamer-logo.png",
         "backgroundColor": "#161621"
-      }
+      },
+      "package": "com.williamscalado.rn"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "69a13536-0d38-4229-a096-d0730529569c"
+      }
     }
   }
 }
