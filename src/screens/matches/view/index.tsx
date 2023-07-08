@@ -1,3 +1,4 @@
+import { API_TOKEN, URL_API } from "@env";
 import React from "react";
 import {
   ActivityIndicator,
@@ -386,6 +387,8 @@ const MatchesView = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Partidas</Text>
+      <Text>API - {API_TOKEN}</Text>
+      <Text>API - {URL_API}</Text>
       <View style={styles.matchesContainer}>
         {loading ? (
           <SafeAreaView style={styles.indicatorWrapper}>
