@@ -9,6 +9,7 @@ interface IProps {
 }
 const VideoGamesList = ({ data }: IProps) => {
   const navigation = useNavigation();
+
   const handleClick = (id: string, name: string = null) => {
     navigation.navigate("Match", {
       videoGameSlug: id,

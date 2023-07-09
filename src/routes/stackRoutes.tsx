@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import MatchesView from "../screens/matches/view";
-import ScreenB from "../screens/screenB";
-import VideoGameView from "../screens/videoGames/view";
+import MatchesView from "../pages/matches/view";
+import ScreenB from "../pages/screenB";
+import VideoGameView from "../pages/videoGames/view";
 export type RootStackParamListApp = {
   VideoGames: undefined;
   Match:

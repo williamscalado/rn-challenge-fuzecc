@@ -1,6 +1,6 @@
 import { StatusBar } from "react-native";
-import { StyleVars } from "./src/common/style/vars";
 import Routes from "./src/routes";
+import { StyleVars } from "./src/shared/style/vars";
 
 export default function App() {
   return (

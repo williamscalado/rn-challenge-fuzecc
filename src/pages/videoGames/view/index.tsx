@@ -10,8 +10,9 @@ import {
   View,
 } from "react-native";
 import { HttpAdapter } from "../../../adapters/axios";
-import VideoGamesList from "../../../common/components/videoGamesList";
-import { StyleVars } from "../../../common/style/vars";
+
+import VideoGamesList from "../../../shared/components/videoGamesList";
+import { StyleVars } from "../../../shared/style/vars";
 import { IVideoGame } from "../domain";
 
 const VideoGameView = () => {
