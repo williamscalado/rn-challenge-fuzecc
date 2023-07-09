@@ -1,7 +1,8 @@
-import { API_TOKEN, URL_API } from "@env";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import {
   ActivityIndicator,
+  Alert,
   FlatList,
   ListRenderItem,
   SafeAreaView,
@@ -12,6 +13,7 @@ import {
 import { HttpAdapter } from "../../../adapters/axios";
 import MatchesList from "../../../common/components/matchesList";
 import { StyleVars } from "../../../common/style/vars";
+import { RootStackParamListApp } from "../../../routes/stackRoutes";
 import { IMatchData } from "../domain";
 const dataMock = [
   {
@@ -360,7 +362,8 @@ const dataMock = [
     winner_type: "Team",
   },
 ];
-const MatchesView = () => {
+type Props = NativeStackScreenProps<RootStackParamListApp, "Match">;
+const MatchesView = ({ route }: Props) => {
   const [matchesData, setMatchesData] = React.useState<IMatchData[]>();
   const [loading, setLoading] = React.useState<boolean>(false);
   const renderItem: ListRenderItem<IMatchData> = ({ item }) => {
@@ -371,11 +374,29 @@ const MatchesView = () => {
     try {
       setLoading(true);
       const result = await HttpAdapter.fetch({
-        url: "csgo/matches?page[size]=10&page[number]=1",
+        url: `/${
+          route.params.videoGameSlug == "cs-go"
+            ? "csgo"
+            : route.params.videoGameSlug
+        }/matches?page[size]=20&page[number]=1`,
         method: "GET",
       });
+      result.sort((a: IMatchData, b: IMatchData) => {
+        return Number(new Date(a.begin_at)) - Number(new Date(b.begin_at));
+      });
+
       setMatchesData(result);
     } catch (error) {
+      Alert.alert("Ops!", "We had a problem", [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        { text: "Try again!", onPress: () => getMatches() },
+      ]);
+
+      setLoading(false);
+      setMatchesData([]);
     } finally {
       setLoading(false);
     }
@@ -386,9 +407,10 @@ const MatchesView = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Partidas</Text>
-      <Text>API - {API_TOKEN}</Text>
-      <Text>API - {URL_API}</Text>
+      <Text style={styles.title}>
+        Partidas {route.params.videoGameName} - {route.params.videoGameSlug}
+      </Text>
+
       <View style={styles.matchesContainer}>
         {loading ? (
           <SafeAreaView style={styles.indicatorWrapper}>
@@ -429,7 +451,7 @@ const styles = StyleSheet.create({
   matchesContainer: {
     width: "100%",
     height: "100%",
-    paddingBottom: 60,
+    flex: 1,
   },
 });
 

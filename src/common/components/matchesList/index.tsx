@@ -1,9 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { verifyImageExist } from "../../../helpers/util";
+import { formatDate, verifyImageExist } from "../../../helpers/util";
 import { IMatchData } from "../../../screens/matches/domain";
 import { StyleVars } from "../../style/vars";
+import OpponentsList from "../opponents";
 
 interface IProps {
   data: IMatchData;
@@ -15,51 +16,32 @@ const MatchesList = ({ data }: IProps) => {
       matchId: id,
     });
   };
+  console.log("data", data);
 
   return (
     <TouchableOpacity onPress={() => handleClick(data.id)}>
       <View style={styles.matchContainer}>
         <View style={styles.dataContainer}>
           <View style={styles.dataContent}>
-            <Text style={styles.dataText}>Agora</Text>
+            <Text style={styles.dataText}>
+              {data.begin_at}- {formatDate(data.begin_at)}
+            </Text>
           </View>
         </View>
 
         <View>
-          <View style={styles.matchDataContent}>
-            <View style={styles.containerInfoTeam}>
-              <Image
-                style={styles.teamImage}
-                source={verifyImageExist(data.opponents[0].opponent.image_url)}
-              />
-              <Text style={styles.teamName}>
-                {data?.opponents[0]?.opponent.name}
-              </Text>
-            </View>
-            <View>
-              <Text style={styles.textVs}>vs</Text>
-            </View>
-            <View style={styles.containerInfoTeam}>
-              <Image
-                style={styles.teamImage}
-                source={verifyImageExist(
-                  data?.opponents[1]?.opponent.image_url
-                )}
-              />
-              <Text style={styles.teamName}>
-                {data?.opponents[1]?.opponent.name}
-              </Text>
-            </View>
-          </View>
+          <OpponentsList data={data.opponents} />
         </View>
 
         <View style={styles.matchFooterContainer}>
           <View style={styles.matchFooterContent}>
             <Image
               style={styles.leagueImage}
-              source={require("../../../../assets/no-league.png")}
+              source={verifyImageExist(data.league.image_url)}
             />
-            <Text style={styles.leagueText}>Footer</Text>
+            <Text style={styles.leagueText}>
+              {data.league.name} - {data.serie.full_name}
+            </Text>
           </View>
         </View>
       </View>
@@ -95,7 +77,6 @@ const styles = StyleSheet.create({
     color: StyleVars.white,
     fontWeight: "700",
     fontSize: 8,
-    textTransform: "uppercase",
   },
   matchDataContainer: {},
   matchDataContent: {
@@ -140,6 +121,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   leagueImage: {
+    height: 16,
+    width: 16,
     maxHeight: 16,
     marginRight: 8,
   },
