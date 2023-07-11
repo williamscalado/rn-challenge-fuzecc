@@ -28,10 +28,7 @@ const VideoGameView = () => {
       const result = await HttpAdapter.fetch({
         url: "videogames?page=1&per_page=20",
         method: "GET",
-      });
-      // result.sort((a: IVideoGame, b: IMatchData) => {
-      //   return Number(new Date(a.begin_at)) - Number(new Date(b.begin_at));
-      // });
+      });  
 
       setVideoGamesData(result);
     } catch (error) {

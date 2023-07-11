@@ -1,4 +1,3 @@
-import { API_TOKEN, URL_API } from "@env";
 import axios, { AxiosRequestConfig } from "axios";
 import {
   IHTTP,
@@ -6,7 +5,7 @@ import {
   IHTTPRequestError,
 } from "../../@types/httpRequest";
 
-const API_ENDPOINT = URL_API;
+const API_ENDPOINT = process.env.EXPO_URL_API;
 
 /* Default error messages for failing requests. */
 const errorMessages: IHTTPRequestError = {
@@ -38,7 +37,7 @@ const genericRequest = axios.create({
 /* Capturing the JWT token with interceptors. */
 genericRequest.interceptors.request.use((req: any) => {
   const newRequest = req;
-  const token = API_TOKEN as string;
+  const token = process.env.EXPO_API_TOKEN as string;
   if (token) {
     newRequest.headers = {
       ...newRequest.headers,

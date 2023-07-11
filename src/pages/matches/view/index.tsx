@@ -12,13 +12,14 @@ import {
 } from "react-native";
 import { HttpAdapter } from "../../../adapters/axios";
 
+import { getRouteVideoGame } from "../../../helpers/util";
 import { RootStackParamListApp } from "../../../routes/stackRoutes";
 import MatchesList from "../../../shared/components/matchesList";
 import { StyleVars } from "../../../shared/style/vars";
 import { IMatchData } from "../domain";
 
 type Props = NativeStackScreenProps<RootStackParamListApp, "Match">;
-const MatchesView = ({ route }: Props) => {
+const MatchesView = ({ route, navigation }: Props) => {
   const [matchesData, setMatchesData] = React.useState<IMatchData[]>();
   const [loading, setLoading] = React.useState<boolean>(false);
   const renderItem: ListRenderItem<IMatchData> = ({ item }) => {
@@ -27,13 +28,13 @@ const MatchesView = ({ route }: Props) => {
 
   const getMatches = React.useCallback(async () => {
     try {
+      const url = `${getRouteVideoGame(
+        route.params.videoGameSlug
+      )}/matches?page[size]=20&page[number]=1`;
+
       setLoading(true);
       const result = await HttpAdapter.fetch({
-        url: `/${
-          route.params.videoGameSlug == "cs-go"
-            ? "csgo"
-            : route.params.videoGameSlug
-        }/matches?page[size]=20&page[number]=1`,
+        url,
         method: "GET",
       });
       result.sort((a: IMatchData, b: IMatchData) => {
@@ -50,7 +51,6 @@ const MatchesView = ({ route }: Props) => {
         { text: "Try again!", onPress: () => getMatches() },
       ]);
 
-      setLoading(false);
       setMatchesData([]);
     } finally {
       setLoading(false);
@@ -59,12 +59,13 @@ const MatchesView = ({ route }: Props) => {
   React.useEffect(() => {
     getMatches();
   }, []);
+  navigation.setOptions({
+    title: route.params.videoGameName,
+  });
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Partidas {route.params.videoGameName} - {route.params.videoGameSlug}
-      </Text>
+      <Text style={styles.title}>Partidas</Text>
 
       <View style={styles.matchesContainer}>
         {loading ? (

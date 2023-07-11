@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { verifyImageExist } from "../../../helpers/util";
-import { Opponent } from "../../../screens/matches/domain";
+import { Opponent } from "../../../pages/matches/domain";
 import { StyleVars } from "../../style/vars";
 
 export type OpponentsProps = {
@@ -16,7 +16,7 @@ const OpponentsList = ({ data }: OpponentsProps) => {
           style={styles.teamImage}
           source={verifyImageExist(data[0]?.opponent?.image_url)}
         />
-        <Text style={styles.teamName}>{data[0]?.opponent?.name} ad</Text>
+        <Text style={styles.teamName}>{data[0]?.opponent?.name}</Text>
       </View>
       <View>
         <Text style={styles.textVs}>vs</Text>
@@ -24,7 +24,7 @@ const OpponentsList = ({ data }: OpponentsProps) => {
       <View style={styles.containerInfoTeam}>
         <Image
           style={styles.teamImage}
-          source={verifyImageExist(data[1]?.opponent?.image_url, "noLeague")}
+          source={verifyImageExist(data[1]?.opponent?.image_url)}
         />
         <Text style={styles.teamName}>{data[1]?.opponent?.name} </Text>
       </View>

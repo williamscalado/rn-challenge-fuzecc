@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { IVideoGame } from "../../../screens/videoGames/domain";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+import { IVideoGame } from "../../../pages/videoGames/domain";
 import { StyleVars } from "../../style/vars";
 
 interface IProps {
@@ -16,26 +17,31 @@ const VideoGamesList = ({ data }: IProps) => {
       videoGameName: name,
     });
   };
-  console.log("data", data);
 
+  console.log(data.slug);
   return (
     <TouchableOpacity onPress={() => handleClick(data.slug, data.name)}>
-      <View style={styles.matchContainer}>
-        <View>
-          <Image source={require("../../../../assets/noLogo.png")} />
-        </View>
-        <Text>{data.name}</Text>
+      <View style={styles.videoGamesContainer}>
+        <Text style={styles.title}>{data.name}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  matchContainer: {
+  videoGamesContainer: {
     borderRadius: 16,
+    height: 50,
     backgroundColor: StyleVars.bgContentMatch,
     marginBottom: 23,
     position: "relative",
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 16,
+    color: StyleVars.white,
   },
 });
 

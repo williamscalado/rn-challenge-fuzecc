@@ -27,3 +27,24 @@ export const formatDate = (date: string = String(new Date())) => {
   const weekDay = newDate.getDay();
   return `${daysOfTheWeek[weekDay]}, ${time}`;
 };
+
+ export const getRouteVideoGame = (slug: string): string => {
+   const dataSlugApi = {
+     "starcraft-2": "starcraft-2",
+     "lol-wild-rift": "lol-wild-rift",
+     lol: "lol",
+     kog: "kog",
+     valorant: "valorant",
+     fifa: "fifa",
+     "r6-siege": "r6siege",
+     "cod-mw": "codmw",
+     rl: "rl",
+     pubg: "pubg",
+     ow: "ow",
+     "dota-2": "dota2",
+     "cs-go": "csgo",
+     "starcraft-brood-war": "starcraft-brood-war",
+     "league-of-legends": "lol",
+   };
+   return dataSlugApi[slug];
+ };

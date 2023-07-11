@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { formatDate, verifyImageExist } from "../../../helpers/util";
-import { IMatchData } from "../../../screens/matches/domain";
+import { IMatchData } from "../../../pages/matches/domain";
 import { StyleVars } from "../../style/vars";
 import OpponentsList from "../opponents";
 
@@ -16,7 +16,7 @@ const MatchesList = ({ data }: IProps) => {
       matchId: id,
     });
   };
-  console.log("data", data);
+
 
   return (
     <TouchableOpacity onPress={() => handleClick(data.id)}>

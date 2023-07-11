@@ -3,6 +3,7 @@ import React from "react";
 import MatchesView from "../pages/matches/view";
 import ScreenB from "../pages/screenB";
 import VideoGameView from "../pages/videoGames/view";
+import { StyleVars } from "../shared/style/vars";
 export type RootStackParamListApp = {
   VideoGames: undefined;
   Match:
@@ -28,7 +29,17 @@ const StackRoutes = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="Match" component={MatchesView} />
+      <Stack.Screen
+        name="Match"
+        component={MatchesView}
+        options={{
+          title: "Partidas",
+          headerTintColor: StyleVars.white,
+          headerStyle: {
+            backgroundColor: StyleVars.bg,
+          },
+        }}
+      />
       <Stack.Screen name="ScreenB" component={ScreenB} />
     </Stack.Navigator>
   );
