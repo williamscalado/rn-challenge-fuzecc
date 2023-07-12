@@ -12,20 +12,18 @@ interface IProps {
 const MatchesList = ({ data }: IProps) => {
   const navigation = useNavigation();
   const handleClick = (id: number) => {
-    navigation.navigate("ScreenB", {
+    navigation.navigate("MatchDetailsView", {
       matchId: id,
+      videoGameSlug: data.videogame.slug,
     });
   };
-
 
   return (
     <TouchableOpacity onPress={() => handleClick(data.id)}>
       <View style={styles.matchContainer}>
         <View style={styles.dataContainer}>
           <View style={styles.dataContent}>
-            <Text style={styles.dataText}>
-              {data.begin_at}- {formatDate(data.begin_at)}
-            </Text>
+            <Text style={styles.dataText}>{formatDate(data.begin_at)}</Text>
           </View>
         </View>
 
@@ -63,7 +61,7 @@ const styles = StyleSheet.create({
   dataContent: {
     padding: 8,
     height: 25,
-    backgroundColor: "red",
+    backgroundColor: "#FAFAFA33",
     alignSelf: "flex-end",
     borderTopEndRadius: 16,
     borderBottomLeftRadius: 16,

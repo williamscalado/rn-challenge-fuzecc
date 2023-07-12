@@ -17,8 +17,6 @@ const VideoGamesList = ({ data }: IProps) => {
       videoGameName: name,
     });
   };
-
-  console.log(data.slug);
   return (
     <TouchableOpacity onPress={() => handleClick(data.slug, data.name)}>
       <View style={styles.videoGamesContainer}>

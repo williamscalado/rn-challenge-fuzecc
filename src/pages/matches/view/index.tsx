@@ -11,7 +11,6 @@ import {
   View,
 } from "react-native";
 import { HttpAdapter } from "../../../adapters/axios";
-
 import { getRouteVideoGame } from "../../../helpers/util";
 import { RootStackParamListApp } from "../../../routes/stackRoutes";
 import MatchesList from "../../../shared/components/matchesList";
@@ -56,9 +55,10 @@ const MatchesView = ({ route, navigation }: Props) => {
       setLoading(false);
     }
   }, []);
+
   React.useEffect(() => {
     getMatches();
-  }, []);
+  }, [getMatches]);
   navigation.setOptions({
     title: route.params.videoGameName,
   });

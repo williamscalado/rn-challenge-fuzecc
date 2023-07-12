@@ -9,6 +9,8 @@ export type OpponentsProps = {
 };
 
 const OpponentsList = ({ data }: OpponentsProps) => {
+  console.log(data);
+
   return (
     <View style={styles.matchDataContent}>
       <View style={styles.containerInfoTeam}>

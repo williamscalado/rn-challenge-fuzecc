@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
+import MatchDetailsView from "../pages/matcheDetails/view";
 import MatchesView from "../pages/matches/view";
-import ScreenB from "../pages/screenB";
 import VideoGameView from "../pages/videoGames/view";
 import { StyleVars } from "../shared/style/vars";
 export type RootStackParamListApp = {
@@ -12,9 +12,10 @@ export type RootStackParamListApp = {
         videoGameName?: string;
       }
     | undefined;
-  ScreenB:
+  MatchDetailsView:
     | {
         matchId: number;
+        videoGameSlug: string;
       }
     | undefined;
 };
@@ -40,7 +41,17 @@ const StackRoutes = () => {
           },
         }}
       />
-      <Stack.Screen name="ScreenB" component={ScreenB} />
+      <Stack.Screen
+        name="MatchDetailsView"
+        component={MatchDetailsView}
+        options={{
+          title: "Detalhe da partidas",
+          headerTintColor: StyleVars.white,
+          headerStyle: {
+            backgroundColor: StyleVars.bg,
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 };

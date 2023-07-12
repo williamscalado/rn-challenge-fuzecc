@@ -48,7 +48,7 @@ const VideoGameView = () => {
   }, []);
   React.useEffect(() => {
     getVideoGames();
-  }, []);
+  }, [getVideoGames]);
 
   return (
     <View style={styles.container}>
