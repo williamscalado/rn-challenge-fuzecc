@@ -8,8 +8,9 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
+      "tabletImage": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#161621"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,12 +20,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/gamer-logo.png",
+        "backgroundColor": "#161621"
+      },
+      "package": "com.williamscalado.rn"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "69a13536-0d38-4229-a096-d0730529569c"
+      }
     }
   }
 }

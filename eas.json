@@ -1,0 +1,25 @@
+{
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "preview3": {
+      "developmentClient": true
+    },
+    "production": {
+      "env": {
+        "API_TOKEN": "FOmqSKo2OklxpX6UkXLLjlqIJsFSatTTzdIFHEISB3nEogyplv4",
+        "URL_API": "https://api.pandascore.co/",
+        "EXPO_PUBLIC_URL_API": "https://api.pandascore.co/",
+        "EXPO_URL_API": "https://api.pandascore.co/"
+      }
+    }
+  }
+}
